@@ -1,0 +1,42 @@
+#cloud {
+    grid-template:
+        '. . . s6 s4 s4 s4 s4'
+        's8 s8 s8 s6 s5 s9 s12 s7'
+        '. s11 s3 s6 s5 s9 s12 s10'
+        '. . s3 s6 s1 s9 s12 s10'
+        '. . s3 s6 s2 s9 s12 s10'
+        '. . . s6 . . s12 .';
+
+}
+
+/* base font color for all words */
+.cloud>div {
+    color: #e2f7ff;
+}
+
+/* twice the size, bold and different color for each second word */
+.cloud :nth-child(2n) {
+    font-size: 1rem;
+    color: #38aecc;
+    font-weight: bold;
+}
+
+/* vertical orientation and different color for each third word */
+.cloud :nth-child(3n) {
+    writing-mode: vertical-lr;
+    -webkit-writing-mode: vertical-lr;
+    -ms-writing-mode: vertical-lr;
+    color: #0090c1;
+}
+
+/* triple size and different color for each fourth word */
+.cloud :nth-child(4n) {
+    font-size: 2rem;
+    color: #5fad67;
+}
+
+/* quadruple size and different color for each fifth word */
+.cloud :nth-child(5n) {
+    font-size: 3rem;
+    color: #ea7979;
+}
