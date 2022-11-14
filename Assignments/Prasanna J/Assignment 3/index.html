@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apollo Hospital | Example of IBM cloud storage and watson</title>
+    <link
+      rel="stylesheet"
+      href="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/main.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="bg-zinc-700 overflow-x-hidden text-white font- duration-7mono00 opacity-100 translate-y-12"
+  >
+    <div
+      class="flex flex-col lg:flex-row items-center justify-center cursor-default"
+    >
+      <img
+        src="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/prasanna_1.jpeg"
+        class="h-64 p-7"
+      />
+      <div>
+        <h1 class="text-7xl font-black w-0 lg:w-full glow">Apollo Hospitals</h1>
+        <p class="py-5 px-2 text-2xl text-teal-500 font-bold hover:text-white">
+          The watson chat is present at the bottom right of the page
+        </p>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <div class="w-2/3 border-t border-gray-600"></div>
+    </div>
+
+    <!-- Projects -->
+    <div class="grid justify-items-center cursor-default">
+      <h1 class="text-5xl font-bold pt-10 items-center">Branches</h1>
+
+      <div
+        class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 p-10 lg:p-20"
+        onclick=""
+      >
+        <div
+          class="rounded-lg bg-zinc-800 rounded scale-95 hover:scale-100 shadow-lg hover:shadow-zinc-800"
+        >
+          <img
+            class="w-full h-full"
+            src="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/prasanna_2.jpeg"
+          />
+        </div>
+
+        <div
+          class="bg-zinc-800 rounded overflow-hidden shadow-lg scale-95 hover:scale-100"
+        >
+          <img
+            class="w-full bg-white"
+            src="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/prasanna_3.jpeg"
+          />
+        </div>
+
+        <div
+          class="bg-zinc-800 rounded overflow-hidden shadow-lg scale-95 hover:scale-100"
+        >
+          <img
+            class="w-full h-full"
+            src="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/prasanna_4.jpeg"
+          />
+        </div>
+
+        <div
+          class="bg-zinc-800 rounded overflow-hidden shadow-lg scale-95 hover:scale-100"
+        >
+          <img
+            class="w-full"
+            src="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/prasanna_5.jpeg"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <div class="w-2/3 border-t border-gray-600"></div>
+    </div>
+
+    <!-- Contact -->
+    <div class="grid justify-items-center">
+      <h1 class="text-5xl font-bold pt-10 items-center">Contact</h1>
+      <form
+        class="py-10 p-x-48 text-black grid grid-cols-2 gap-x-8 gap-y-12 w-2/3"
+      >
+        <input
+          type="text"
+          class="p-3 rounded-md placeholder-black"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="text"
+          class="p-3 rounded-md placeholder-black"
+          placeholder="Name"
+          required
+        />
+        <input
+          type="text"
+          class="p-3 rounded-md col-span-2 placeholder-black"
+          placeholder="Subject"
+          required
+        />
+        <textarea
+          class="p-3 rounded-md col-span-2 placeholder-black"
+          placeholder="Message"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          class="bg-sky-500 w-32 p-3 rounded-lg text-2xl text-white text-bold hover:bg-sky-600 focus:ring-4 focus:ring-blue-300"
+        >
+          Send
+        </button>
+      </form>
+    </div>
+    <script>
+      window.watsonAssistantChatOptions = {
+        integrationID: "f7ae7b63-3870-4f5f-b7c4-df185b657c86", // The ID of this integration.
+        region: "au-syd", // The region your integration is hosted in.
+        serviceInstanceID: "4c1a5d56-c9d9-44fb-909b-5109aa5b8994", // The ID of your service instance.
+        onLoad: function (instance) {
+          instance.render();
+        },
+      };
+      setTimeout(function () {
+        const t = document.createElement("script");
+        t.src =
+          "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+          (window.watsonAssistantChatOptions.clientVersion || "latest") +
+          "/WatsonAssistantChatEntry.js";
+        document.head.appendChild(t);
+      });
+    </script>
+    <script src="https://s3.us-east.cloud-object-storage.appdomain.cloud/wycliffe/main.js"></script>
+  </body>
+</html>
