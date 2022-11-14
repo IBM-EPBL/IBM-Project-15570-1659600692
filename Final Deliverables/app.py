@@ -1,8 +1,10 @@
+from models import TicketStatus
+from models import Ticket
 from flask import Flask, render_template, redirect, url_for, g, session, request
 from flask_login import current_user, LoginManager, login_user, logout_user
 from db import IBMdb2
 import json
-from models import User, UserType
+from models import User, UserType, Ticket
 import uuid
 from utils import login_required
 
@@ -89,14 +91,31 @@ def logout():
 @login_required(UserType.CUSTOMER)
 def dashboard():
     tickets = db.get_tickets_for_user(current_user)
-    return render_template("customer_dashboard.html", user=current_user, tickets=tickets)
+    ticket_stats = {"open": 0, "closed": 0, "assigned": 0, "total": 0}
+    for ticket in tickets:
+        ticket_stats["total"] += 1
+        if ticket.status == TicketStatus.OPEN:
+            ticket_stats["open"] += 1
+        elif ticket.status == TicketStatus.CLOSED:
+            ticket_stats["closed"] += 1
+        elif ticket.status == TicketStatus.IN_PROGRESS:
+            ticket_stats["assigned"] += 1
+
+    return render_template(
+        "customer_dashboard.html", user=current_user, tickets=tickets, ticket_stats=ticket_stats
+    )
 
 
-@app.route("/create_ticket")
+@app.route("/create_ticket", methods=["GET", "POST"])
 @login_required(UserType.CUSTOMER)
-def create_ticket(request):
+def create_ticket():
     if request.method == "POST":
-        pass
+        ticket = db.create_ticket(
+            Ticket.from_request(current_user, request.form["title"], request.form["description"])
+        )
+        return redirect(url_for("dashboard"))
+    else:
+        return render_template("create_ticket.html")
 
 
 # AGENT ROUTES
@@ -113,4 +132,4 @@ def admin_dashboard():
     return render_template("admin_dashboard.html")
 
 
-app.run(debug=False)
+app.run(debug=True)

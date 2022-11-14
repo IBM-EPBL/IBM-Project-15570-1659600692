@@ -31,7 +31,6 @@ class IBMdb2:
             user.role.value,
             user.language if isinstance(user.language, str) else user.language.value,
         )
-        print(stmt, user)
         ibm_db.execute(stmt, params)
         return True
 
@@ -70,31 +69,27 @@ class IBMdb2:
         return None
 
     def create_ticket(self, ticket: Ticket):
-        with self.conn.cursor() as cursor:
-            print(ticket)
-            cursor.execute(
-                "INSERT INTO tickets (uid, author_uid, title, description, priority, status) VALUES (?, ?, ?, ?, ?, ?)",
-                (
-                    str(uuid.uuid4()),
-                    ticket.author.uid,
-                    ticket.title,
-                    ticket.description,
-                    ticket.priority,
-                    ticket.status,
-                ),
-            )
-            return True
+        insert_stmt = "INSERT INTO tickets (uid, author, title, description, priority, status) VALUES (?, ?, ?, ?, ?, ?)"
+        stmt = ibm_db.prepare(self.conn, insert_stmt)
+        params = (
+            str(uuid.uuid4()),
+            ticket.author.uid,
+            ticket.title,
+            ticket.description,
+            ticket.priority.value,
+            ticket.status.value,
+        )
+        ibm_db.execute(stmt, params)
+        return True
 
     def get_tickets_for_user(self, user: User):
         stmt = ibm_db.prepare(self.conn, "SELECT * FROM tickets WHERE author = ?")
         ibm_db.bind_param(stmt, 1, user.uid)
         ibm_db.execute(stmt)
 
-        row = ibm_db.fetch_row(stmt)
         tickets = []
+        row = ibm_db.fetch_tuple(stmt)
         while row:
-            print(row)
-            row = ibm_db.fetch_row(stmt)
             tickets.append(Ticket.from_tuple(user, row))
-
+            row = ibm_db.fetch_tuple(stmt)
         return tickets

@@ -19,7 +19,7 @@ def login():
 
 
 @app.route("/logout")
-def logout():
+def logout1():
     return render_template("logout.html")
 
 
@@ -36,6 +36,11 @@ def agent_dashboard():
 @app.route("/chat")
 def chat():
     return render_template("chatroom.html")
+
+
+@app.route("/logout")
+def logout():
+    return render_template("logout.html")
 
 
 @app.route("/admin_dashboard")

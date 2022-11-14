@@ -13,7 +13,15 @@
       <p class="tracking-wider font-semibold text-2xl">
         ❤️ Customer Care Registry
       </p>
-      <p>Welcome {{user.name}}</p>
+      <div class="flex">
+        <p class="font-semibold">Welcome {{user.name}}!</p>
+        <a
+          class="cursor-pointer mx-5 text-white px-2 rounded-xl bg-blue-600 hover:bg-blue-800"
+          href="/logout"
+        >
+          📤 Logout</a
+        >
+      </div>
     </div>
 
     <div class="p-10 space-y-5 flex flex-col">
@@ -25,33 +33,43 @@
             class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
           >
             <div class="text-bold tracking-wide">Tickets Open</div>
-            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.open}}
+            </p>
           </div>
           <div
             class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
           >
             <div class="text-bold tracking-wide">Tickets Assigned</div>
-            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.assigned}}
+            </p>
           </div>
           <div
             class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
           >
             <div class="text-bold tracking-wide">Tickets Closed</div>
-            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.closed}}
+            </p>
           </div>
           <div
             class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
           >
             <div class="text-bold tracking-wide">Total Tickets</div>
-            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.total}}
+            </p>
           </div>
         </div>
       </div>
 
       <div class="flex justify-between grow items-center">
         <h2 class="tracking-wider font-semibold text-2xl">Ticket Table</h2>
+        <!-- Ticket button -->
         <button
           class="bg-teal-600 hover:bg-teal-700 text-gray-100 rounded-xl p-3 font-semibold"
+          onclick="window.location.href = '/create_ticket'"
         >
           Create New Ticket
         </button>
@@ -65,8 +83,7 @@
               <th scope="col" class="py-3 px-6">Ticket ID</th>
               <th scope="col" class="py-3 px-6">Title</th>
               <th scope="col" class="py-3 px-6">Status</th>
-              <th scope="col" class="py-3 px-6">Date Opened</th>
-              <th scope="col" class="py-3 px-6">Date Closed</th>
+              <th scope="col" class="py-3 px-6">Priority</th>
             </tr>
           </thead>
           <tbody>
@@ -80,8 +97,7 @@
               </th>
               <td class="py-4 px-6">{{ticket.title}}</td>
               <td class="py-4 px-6">{{ticket.status.name}}</td>
-              <td class="py-4 px-6">27 jan 1999</td>
-              <td class="py-4 px-6">27 jan 2000</td>
+              <td class="py-4 px-6">{{ticket.priority.name |lower}}</td>
             </tr>
             {% endfor %}
           </tbody>

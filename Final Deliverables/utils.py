@@ -23,7 +23,7 @@ def login_required(role: UserType = UserType.ANY):
                 return current_app.login_manager.unauthorized()
 
             print("Login requed?", role, current_user.role)
-            if role == UserType.ANY and current_user.role != role:
+            if role != UserType.ANY and current_user.role != role:
                 return current_app.login_manager.unauthorized()
 
             return fn(*args, **kwargs)

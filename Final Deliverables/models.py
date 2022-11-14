@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum, IntEnum
+import uuid
 
 
 class Language(Enum):
@@ -38,10 +39,14 @@ class Ticket:
         uid = ticket_details[0]
         title = ticket_details[2]
         desc = ticket_details[3]
-        prio = TicketPrio[ticket_details[4]]
-        status = TicketStatus[ticket_details[5]]
+        prio = TicketPrio(ticket_details[4])
+        status = TicketStatus(ticket_details[5])
         ticket = cls(uid, user, title, desc, prio, status)
         return ticket
+
+    @classmethod
+    def from_request(cls, user, title, desc):
+        return cls(str(uuid.uuid4()), user, title, desc, TicketPrio.LOW, TicketStatus.OPEN)
 
 
 @dataclass
