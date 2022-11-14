@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent Dashboard</title>
+    <link rel="stylesheet" href="static/css/main.css" />
+  </head>
+  <body class="bg-green-100">
+    <!-- Header -->
+    <div class="bg-gray-100 p-2 flex justify-between">
+      <p class="tracking-wider font-semibold text-2xl">⚒ Agent Dashboard</p>
+      <p>Welcome Agent User!</p>
+    </div>
+    <div class="p-10 space-y-5 flex flex-col">
+      <h2 class="tracking-wider font-semibold text-2xl">My Assigned Tickets</h2>
+      <!-- Ticket Table -->
+      <div class="overflow-x-auto relative">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+            <tr>
+              <th scope="col" class="py-3 px-6">Ticket ID</th>
+              <th scope="col" class="py-3 px-6">Title</th>
+              <th scope="col" class="py-3 px-6">Status</th>
+              <th scope="col" class="py-3 px-6">Date Opened</th>
+              <th scope="col" class="py-3 px-6">Date Closed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b hover:bg-slate-50 cursor-pointer">
+              <th
+                scope="row"
+                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+              >
+                3278
+              </th>
+              <td class="py-4 px-6">Cat jumed</td>
+              <td class="py-4 px-6">Ongoing</td>
+              <td class="py-4 px-6">27 jan 1999</td>
+              <td class="py-4 px-6">27 jan 2000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

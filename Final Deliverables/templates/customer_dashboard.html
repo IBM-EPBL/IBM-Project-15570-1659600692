@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="static/css/main.css" />
+  </head>
+  <body class="bg-green-100">
+    <!-- Header -->
+    <div class="bg-gray-100 p-2 flex justify-between">
+      <p class="tracking-wider font-semibold text-2xl">
+        ❤️ Customer Care Registry
+      </p>
+      <p>Welcome {{user.name}}</p>
+    </div>
+
+    <div class="p-10 space-y-5 flex flex-col">
+      <!-- Stats -->
+      <h2 class="tracking-wider font-semibold text-2xl">Stats</h2>
+      <div class="bg-blue-100 h-40 w-full rounded p-3 cursor-default">
+        <div class="flex mt-2 justify-around">
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Tickets Open</div>
+            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+          </div>
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Tickets Assigned</div>
+            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+          </div>
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Tickets Closed</div>
+            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+          </div>
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Total Tickets</div>
+            <p class="text-semibold text-gray-500 tracking-wider">100</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between grow items-center">
+        <h2 class="tracking-wider font-semibold text-2xl">Ticket Table</h2>
+        <button
+          class="bg-teal-600 hover:bg-teal-700 text-gray-100 rounded-xl p-3 font-semibold"
+        >
+          Create New Ticket
+        </button>
+      </div>
+
+      <!-- Ticket Table -->
+      <div class="overflow-x-auto relative">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+            <tr>
+              <th scope="col" class="py-3 px-6">Ticket ID</th>
+              <th scope="col" class="py-3 px-6">Title</th>
+              <th scope="col" class="py-3 px-6">Status</th>
+              <th scope="col" class="py-3 px-6">Date Opened</th>
+              <th scope="col" class="py-3 px-6">Date Closed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr class="bg-white border-b hover:bg-slate-50 cursor-pointer">
+              <th
+                scope="row"
+                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+              >
+                {{ticket.uid}}
+              </th>
+              <td class="py-4 px-6">{{ticket.title}}</td>
+              <td class="py-4 px-6">{{ticket.status.name}}</td>
+              <td class="py-4 px-6">27 jan 1999</td>
+              <td class="py-4 px-6">27 jan 2000</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
