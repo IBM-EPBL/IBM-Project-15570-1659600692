@@ -106,11 +106,17 @@ def dashboard():
     )
 
 
+@app.route("/chat")
+@login_required(UserType.CUSTOMER)
+def chat():
+    return render_template("chatroom.html", user=current_user)
+
+
 @app.route("/create_ticket", methods=["GET", "POST"])
 @login_required(UserType.CUSTOMER)
 def create_ticket():
     if request.method == "POST":
-        ticket = db.create_ticket(
+        db.create_ticket(
             Ticket.from_request(current_user, request.form["title"], request.form["description"])
         )
         return redirect(url_for("dashboard"))

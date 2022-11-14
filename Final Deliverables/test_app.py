@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, url_for
+from types import SimpleNamespace
 
 app = Flask(__name__)
+
+user = SimpleNamespace(name="sus")
 
 
 @app.route("/")
@@ -35,7 +38,7 @@ def agent_dashboard():
 
 @app.route("/chat")
 def chat():
-    return render_template("chatroom.html")
+    return render_template("chatroom.html", user=user)
 
 
 @app.route("/logout")
