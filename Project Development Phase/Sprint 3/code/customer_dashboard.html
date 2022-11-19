@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="static/css/main.css" />
+  </head>
+  <body class="bg-green-100">
+    <!-- Header -->
+    <div class="bg-gray-100 p-2 flex justify-between">
+      <p class="tracking-wider font-semibold text-2xl">
+        ❤️ Customer Care Registry
+      </p>
+      <div class="flex">
+        <p class="font-semibold">Welcome {{user.name}}!</p>
+        <a
+          class="cursor-pointer mx-5 text-white px-2 rounded-xl bg-blue-600 hover:bg-blue-800"
+          href="/logout"
+        >
+          📤 Logout</a
+        >
+      </div>
+    </div>
+
+    <div class="p-10 space-y-5 flex flex-col">
+      <!-- Stats -->
+      <h2 class="tracking-wider font-semibold text-2xl">Stats</h2>
+      <div class="bg-blue-100 h-40 w-full rounded p-3 cursor-default">
+        <div class="flex mt-2 justify-around">
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Tickets Open</div>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.open}}
+            </p>
+          </div>
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Tickets Assigned</div>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.assigned}}
+            </p>
+          </div>
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Tickets Closed</div>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.closed}}
+            </p>
+          </div>
+          <div
+            class="flex items-center justify-center flex-col border shadow-md w-48 h-24 bg-gray-100 rounded-2xl"
+          >
+            <div class="text-bold tracking-wide">Total Tickets</div>
+            <p class="text-semibold text-gray-500 tracking-wider">
+              {{ticket_stats.total}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between grow items-center">
+        <h2 class="tracking-wider font-semibold text-2xl">Ticket Table</h2>
+        <!-- Ticket button -->
+        <button
+          class="bg-teal-600 hover:bg-teal-700 text-gray-100 rounded-xl p-3 font-semibold"
+          onclick="window.location.href = '/create_ticket'"
+        >
+          Create New Ticket
+        </button>
+      </div>
+
+      <!-- Ticket Table -->
+      <div class="overflow-x-auto relative">
+        <table class="w-full text-sm text-left text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+            <tr>
+              <th scope="col" class="py-3 px-6">Ticket ID</th>
+              <th scope="col" class="py-3 px-6">Title</th>
+              <th scope="col" class="py-3 px-6">Status</th>
+              <th scope="col" class="py-3 px-6">Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr class="bg-white border-b hover:bg-slate-50 cursor-pointer">
+              <th
+                scope="row"
+                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+              >
+                {{ticket.uid}}
+              </th>
+              <td class="py-4 px-6">{{ticket.title}}</td>
+              <td class="py-4 px-6">{{ticket.status.name}}</td>
+              <td class="py-4 px-6">{{ticket.priority.name |lower}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      window.watsonAssistantChatOptions = {
+        integrationID: "f7ae7b63-3870-4f5f-b7c4-df185b657c86", // The ID of this integration.
+        region: "au-syd", // The region your integration is hosted in.
+        serviceInstanceID: "4c1a5d56-c9d9-44fb-909b-5109aa5b8994", // The ID of your service instance.
+        onLoad: function (instance) {
+          instance.render();
+        },
+      };
+      setTimeout(function () {
+        const t = document.createElement("script");
+        t.src =
+          "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+          (window.watsonAssistantChatOptions.clientVersion || "latest") +
+          "/WatsonAssistantChatEntry.js";
+        document.head.appendChild(t);
+      });
+    </script>
+  </body>
+</html>
