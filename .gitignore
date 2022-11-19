@@ -1,2 +1,2 @@
 *.pyc
-db2.json
+secrets.yml

@@ -28,18 +28,19 @@
             </tr>
           </thead>
           <tbody>
+            {% for ticket in tickets %}
             <tr class="bg-white border-b hover:bg-slate-50 cursor-pointer">
               <th
                 scope="row"
                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
               >
-                3278
+                {{ticket.uid}}
               </th>
-              <td class="py-4 px-6">Cat jumed</td>
-              <td class="py-4 px-6">Ongoing</td>
-              <td class="py-4 px-6">27 jan 1999</td>
-              <td class="py-4 px-6">27 jan 2000</td>
+              <td class="py-4 px-6">{{ticket.title}}</td>
+              <td class="py-4 px-6">{{ticket.status.name}}</td>
+              <td class="py-4 px-6">{{ticket.priority.name |lower}}</td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

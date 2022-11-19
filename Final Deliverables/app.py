@@ -7,6 +7,7 @@ import json
 from models import User, UserType, Ticket
 import uuid
 from utils import login_required
+import os
 
 app = Flask(__name__)
 app.secret_key = "?????"
@@ -17,9 +18,7 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 
 # db
-with open("db2.json") as f:
-    creds = json.load(f)
-db = IBMdb2(creds["connection"]["db2"])
+db = IBMdb2(os.environ.get("DB2_CONN_STR"))
 
 
 @login_manager.user_loader
@@ -84,7 +83,7 @@ def login():
 def logout():
     # TODO or redirect to main_page
     logout_user()
-    return render_template("logout.html")
+    return redirect(url_for("login"))
 
 
 @app.route("/dashboard")
@@ -124,11 +123,21 @@ def create_ticket():
         return render_template("create_ticket.html")
 
 
+import ibm_db
+
 # AGENT ROUTES
 @app.route("/agent_dashboard")
-@login_required(UserType.AGENT)
+@login_required(UserType.CUSTOMER)
 def agent_dashboard():
-    return render_template("agent_dashboard.html")
+    stmt = ibm_db.prepare(db.conn, "SELECT * FROM tickets")
+    ibm_db.execute(stmt)
+
+    tickets = []
+    row = ibm_db.fetch_tuple(stmt)
+    while row:
+        tickets.append(Ticket.from_tuple(None, row))
+        row = ibm_db.fetch_tuple(stmt)
+    return render_template("agent_dashboard.html", tickets=tickets)
 
 
 # ADMIN ROUTES

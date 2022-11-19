@@ -9,9 +9,9 @@ from typing import Optional
 
 
 class IBMdb2:
-    def __init__(self, db2):
+    def __init__(self, connection_str):
         self.conn = ibm_db.connect(
-            f"DATABASE={db2['database']};HOSTNAME={db2['hosts'][0]['hostname']};PORT={db2['hosts'][0]['port']};PROTOCOL=TCPIP;UID={db2['authentication']['username']};PWD={db2['authentication']['password']};SECURITY=SSL",
+            connection_str,
             "",
             "",
         )
